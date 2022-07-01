@@ -102,7 +102,7 @@ stages:
 
   - job: "Integration_test_job"
     displayName: "Integration test job"
-    dependsOn: [Deploy_to_Databricks, Deploy_to_ADF]
+    dependsOn: [Deploy_to_Databricks]
     pool:
       vmImage: 'ubuntu-latest'
     timeoutInMinutes: 0
