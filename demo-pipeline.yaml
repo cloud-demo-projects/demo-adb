@@ -45,10 +45,10 @@ stages:
     - publish: $(Build.SourcesDirectory)/$(Build.Repository.Name)/code/dataingestion
       artifact: di-notebooks
 
-    - checkout: git://${{variables['System.TeamProject']}}@adf_publish  
+    # - checkout: git://${{variables['System.TeamProject']}}@adf_publish  
 
-    - publish: $(Build.SourcesDirectory)/$(Build.Repository.Name)/devops-ds-adf
-      artifact: adf-pipelines
+    # - publish: $(Build.SourcesDirectory)/$(Build.Repository.Name)/devops-ds-adf
+    #   artifact: adf-pipelines
 
 - stage: 'Deploy_to_QA'
   displayName: 'Deploy to QA'
@@ -107,13 +107,13 @@ stages:
       vmImage: 'ubuntu-latest'
     timeoutInMinutes: 0
     steps:
-    - task: AzurePowerShell@4
-      displayName: 'Execute ADF Pipeline'
-      inputs:
-        azureSubscription: $(AZURE_RM_CONNECTION)
-        ScriptPath: '$(Build.SourcesDirectory)/adf/utils/Invoke-ADFPipeline.ps1'
-        ScriptArguments: '-ResourceGroupName $(RESOURCE_GROUP) -DataFactoryName $(DATA_FACTORY_NAME) -PipelineName $(PIPELINE_NAME)'
-        azurePowerShellVersion: LatestVersion
+    # - task: AzurePowerShell@4
+    #   displayName: 'Execute ADF Pipeline'
+    #   inputs:
+    #     azureSubscription: $(AZURE_RM_CONNECTION)
+    #     ScriptPath: '$(Build.SourcesDirectory)/adf/utils/Invoke-ADFPipeline.ps1'
+    #     ScriptArguments: '-ResourceGroupName $(RESOURCE_GROUP) -DataFactoryName $(DATA_FACTORY_NAME) -PipelineName $(PIPELINE_NAME)'
+    #     azurePowerShellVersion: LatestVersion
 
     - task: UsePythonVersion@0
       inputs:
