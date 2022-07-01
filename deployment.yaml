@@ -1,0 +1,47 @@
+parameters:
+- name: service_connection
+  type: string
+
+jobs:
+  - job: "Deployment"
+    steps:
+    - task: AzurePowerShell@3
+      displayName: 'Get Secrets from Azure Key Vault'
+      inputs:
+        azureSubscription: ${{ parameters.service_connection }}
+        ScriptType: InlineScript
+        Inline: |
+          $DatabricksTokenValue = Get-AzureKeyVaultSecret -VaultName $(key_vault) -Name adb-accessToken
+          $DatabricksTokenValue = $DatabricksTokenValue.SecretValueText
+          write-host "##vso[task.setvariable variable=DatabricksTokenValue;issecret=true]$DatabricksTokenValue"
+        azurePowerShellVersion: LatestVersion
+
+    - task: DataThirstLtd.databricksDeployScriptsTasks.databricksDeployDBFSFilesTask.databricksDeployDBFSFilesTask@0
+      displayName: 'Deploy Data To Databricks'
+      inputs:
+        azureSubscription: ${{ parameters.service_connection }}
+        bearerToken: '$(DatabricksTokenValue)'
+        LocalRootFolder: '$(System.DefaultWorkingDirectory)'
+        FilePattern: '*.csv'
+        TargetLocation: '/tmp/'
+
+    - task: configuredatabricks@0
+      displayName: 'Configure Databricks CLI'
+      inputs:
+        url: 'https://$(DatabricksHostName)'
+        token: '$(DatabricksTokenValue)'
+
+    - task: deploynotebooks@0
+      displayName: 'Deploy notebook to the Databricks cluster'   
+      inputs:
+        notebooksFolderPath: '$(System.DefaultWorkingDirectory)/notebook'
+        workspaceFolder: '$(WorkspaceNotebookDirectory)'
+
+    - task: executenotebook@0
+      displayName: 'Execute Notebook'
+      inputs:
+        notebookPath: '$(WorkspaceNotebookDirectory)$(NotebookName)'
+        existingClusterId: '$(DatabricksClusterId)'
+        
+    - task: waitexecution@0
+      displayName: 'Waiting for execution to finish'
