@@ -17,29 +17,36 @@ stages:
         addToPath: true
         architecture: 'x64'
       displayName: 'Use Python3'
+
     - script: pip install --upgrade flake8 flake8_formatter_junit_xml
       displayName: 'Install flake8'
+
     - checkout: self
+
     - script: |
        flake8 --output-file=$(Build.BinariesDirectory)/lint-testresults.xml --format junit-xml  
-    workingDirectory: '$(Build.SourcesDirectory)'
-    displayName: 'Run flake8 (code style analysis)'  
+      workingDirectory: '$(Build.SourcesDirectory)'
+      displayName: 'Run flake8 (code style analysis)'  
+
     - script: |
        python -m pytest --junitxml=$(Build.BinariesDirectory)/unit-testresults.xml $(Build.SourcesDirectory)
-    displayName: 'Run unit tests'
+      displayName: 'Run unit tests'
+
     - task: PublishTestResults@2
-    condition: succeededOrFailed()
-    inputs:
-        testResultsFiles: '$(Build.BinariesDirectory)/*-testresults.xml'
-        testRunTitle: 'Linting & Unit tests'
-        failTaskOnFailedTests: true
-    displayName: 'Publish linting and unit test results'    
+      condition: succeededOrFailed()
+      inputs:
+          testResultsFiles: '$(Build.BinariesDirectory)/*-testresults.xml'
+          testRunTitle: 'Linting & Unit tests'
+          failTaskOnFailedTests: true
+      displayName: 'Publish linting and unit test results'    
 
     # The CI stage produces two artifacts (notebooks and ADF pipelines).
     # The pipelines Azure Resource Manager templates are stored in a technical branch "adf_publish"
     - publish: $(Build.SourcesDirectory)/$(Build.Repository.Name)/code/dataingestion
       artifact: di-notebooks
-    - checkout: git://${{variables['System.TeamProject']}}@adf_publish    
+
+    - checkout: git://${{variables['System.TeamProject']}}@adf_publish  
+
     - publish: $(Build.SourcesDirectory)/$(Build.Repository.Name)/devops-ds-adf
       artifact: adf-pipelines
 
