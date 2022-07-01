@@ -52,8 +52,8 @@ stages:
 
 - stage: 'Deploy_to_QA'
   displayName: 'Deploy to QA'
-  variables:
-  - group: devops-ds-qa-vg
+  # variables:
+  # - group: devops-ds-qa-vg
   jobs:
   - deployment: "Deploy_to_Databricks"
     displayName: 'Deploy to Databricks'
@@ -80,24 +80,26 @@ stages:
               inputs:
                 notebooksFolderPath: '$(Pipeline.Workspace)/di-notebooks'
                 workspaceFolder: '/Shared/devops-ds'
-              displayName: 'Deploy (copy) data processing notebook to the Databricks cluster'             
-  - deployment: "Deploy_to_ADF"
-    displayName: 'Deploy to ADF'
-    timeoutInMinutes: 0
-    environment: qa
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-            - task: AzureResourceGroupDeployment@2
-              displayName: 'Deploy ADF resources'
-              inputs:
-                azureSubscription: $(AZURE_RM_CONNECTION)
-                resourceGroupName: $(RESOURCE_GROUP)
-                location: $(LOCATION)
-                csmFile: '$(Pipeline.Workspace)/adf-pipelines/ARMTemplateForFactory.json'
-                csmParametersFile: '$(Pipeline.Workspace)/adf-pipelines/ARMTemplateParametersForFactory.json'
-                overrideParameters: -data-ingestion-pipeline_properties_variables_data_file_name_defaultValue "$(DATA_FILE_NAME)"
+              displayName: 'Deploy (copy) data processing notebook to the Databricks cluster'
+
+  # - deployment: "Deploy_to_ADF"
+  #   displayName: 'Deploy to ADF'
+  #   timeoutInMinutes: 0
+  #   environment: qa
+  #   strategy:
+  #     runOnce:
+  #       deploy:
+  #         steps:
+  #           - task: AzureResourceGroupDeployment@2
+  #             displayName: 'Deploy ADF resources'
+  #             inputs:
+  #               azureSubscription: $(AZURE_RM_CONNECTION)
+  #               resourceGroupName: $(RESOURCE_GROUP)
+  #               location: $(LOCATION)
+  #               csmFile: '$(Pipeline.Workspace)/adf-pipelines/ARMTemplateForFactory.json'
+  #               csmParametersFile: '$(Pipeline.Workspace)/adf-pipelines/ARMTemplateParametersForFactory.json'
+  #               overrideParameters: -data-ingestion-pipeline_properties_variables_data_file_name_defaultValue "$(DATA_FILE_NAME)"
+
   - job: "Integration_test_job"
     displayName: "Integration test job"
     dependsOn: [Deploy_to_Databricks, Deploy_to_ADF]
@@ -112,6 +114,7 @@ stages:
         ScriptPath: '$(Build.SourcesDirectory)/adf/utils/Invoke-ADFPipeline.ps1'
         ScriptArguments: '-ResourceGroupName $(RESOURCE_GROUP) -DataFactoryName $(DATA_FACTORY_NAME) -PipelineName $(PIPELINE_NAME)'
         azurePowerShellVersion: LatestVersion
+
     - task: UsePythonVersion@0
       inputs:
         versionSpec: '3.x'
