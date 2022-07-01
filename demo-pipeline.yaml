@@ -27,6 +27,10 @@ stages:
        flake8 --output-file=$(Build.BinariesDirectory)/lint-testresults.xml --format junit-xml  
       workingDirectory: '$(Build.SourcesDirectory)'
       displayName: 'Run flake8 (code style analysis)'  
+    
+    - script: |
+        pip install pytest
+      displayName: 'Load Python Dependencies'
 
     - script: |
        python -m pytest --junitxml=$(Build.BinariesDirectory)/unit-testresults.xml $(Build.SourcesDirectory)
