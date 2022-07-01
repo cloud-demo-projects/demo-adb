@@ -24,4 +24,5 @@
 #         database=source.database,
 #         table=source.table,
 #         path=source.path))
-#     spark.sql("refresh table {database}.{table}".format(database=source.database, table=source.table))
+#     spark.sql("refresh table {database}.{table}".
+#           format(database=source.database, table=source.table))
