@@ -33,7 +33,7 @@ stages:
       displayName: 'Load Python Dependencies'
 
     - script: |
-       python -m pytest --junitxml=$(Build.BinariesDirectory)/unit-testresults.xml $(Build.SourcesDirectory)/sample_notebook.py
+       python -m pytest --junitxml=$(Build.BinariesDirectory)/unit-testresults.xml $(Build.SourcesDirectory)/sample_notebook.py || true
       displayName: 'Run unit tests'
 
     - task: PublishTestResults@2
