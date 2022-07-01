@@ -33,7 +33,7 @@ stages:
       displayName: 'Load Python Dependencies'
 
     - script: |
-       python -m pytest --junitxml=$(Build.BinariesDirectory)/unit-testresults.xml $(Build.SourcesDirectory)/sample_notebook.py || true
+       python -m pytest --junitxml=$(Build.BinariesDirectory)/unit-testresults.xml $(Build.SourcesDirectory)/notebooks/sample_notebook.py || true
       displayName: 'Run unit tests'
 
     - task: PublishTestResults@2
@@ -46,7 +46,7 @@ stages:
 
     # The CI stage produces two artifacts (notebooks and ADF pipelines).
     # The pipelines Azure Resource Manager templates are stored in a technical branch "adf_publish"
-    - publish: $(Build.SourcesDirectory)/$(Build.Repository.Name)/code/dataingestion
+    - publish: $(Build.SourcesDirectory)/$(Build.Repository.Name)/notebooks
       artifact: di-notebooks
 
     # - checkout: git://${{variables['System.TeamProject']}}@adf_publish  
