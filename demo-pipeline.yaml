@@ -46,7 +46,7 @@ stages:
 
     # The CI stage produces two artifacts (notebooks and ADF pipelines).
     # The pipelines Azure Resource Manager templates are stored in a technical branch "adf_publish"
-    - publish: $(Build.SourcesDirectory)/$(Build.Repository.Name)/notebooks
+    - publish: $(Build.SourcesDirectory)/notebooks
       artifact: di-notebooks
 
     # - checkout: git://${{variables['System.TeamProject']}}@adf_publish  
