@@ -5,37 +5,32 @@ pool:
   demands: azureps
 
 parameters:
-- name: ServiceConnectionName
-  displayName: The name of the Service Connection
-  type: string
-  default: ''
-- name: SubscriptionId
-  displayName: The ID of the Subscription
-  type: string
-  default: ''
-- name: ResourceGroupName
-  displayName: The name of the Resource Group
-  type: string
-  default: ''
-- name: ResourceGroupLocation
-  displayName: The location of the ADB
-  type: string
-  default: 'West Europe'
-  
+- name: environment
+  displayName: Environment
+  default: d
+  values:
+  - d
+  - t
+  - a
+  - p
+
+variables:
+- template: conf/${{ parameters.environment }}/variables.yml
+
 stages:
 - stage: Stage_ADB
   jobs:
   - job: CreateADB
-    displayName: Create  ADB 
+    displayName: Create  ADB
     steps:
     - task: AzureResourceManagerTemplateDeployment@3
       displayName: Deploy Databricks ARM-Template
       inputs:
         deploymentScope: 'Resource Group'
-        azureResourceManagerConnection: ${{ parameters.ServiceConnectionName }}
-        SubscriptionId: ${{ parameters.SubscriptionId }}
-        ResourceGroupName: ${{ parameters.ResourceGroupName }}
-        location: ${{ parameters.ResourceGroupLocation }}
+        azureResourceManagerConnection: $(azureServiceConnection)
+        SubscriptionId: $(subscriptionId)
+        ResourceGroupName: $(resourceGroupName)
+        location: $(location)
         csmFile: '$(System.DefaultWorkingDirectory)/Services/Azure_Databricks/azuredeploy.json'
         csmParametersFile: '$(System.DefaultWorkingDirectory)/Services/Azure_Databricks/azuredeployparam.json'
         #overrideParameters: '-keyVaultName "demo-adb-kv" -bypassNetworkAcls AzureServices -virtualNetworkRules []'
