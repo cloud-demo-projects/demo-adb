@@ -1,0 +1,40 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "disablePublicIp": {
+            "value": true
+        },
+        "workspaceName": {
+            "value": "demo-adb-ws"
+        },
+        "pricingTier": {
+            "value": "Premium"
+        },
+        "customPrivateSubnetName": {
+            "value": "adbprivate01-subnet"
+        },
+        "customPublicSubnetName": {
+            "value": "adbpublic01-subnet"
+        },
+        "customVirtualNetworkId": {
+            "value": "/subscriptions/blbla/resourceGroups/demo-adb/providers/Microsoft.Network/virtualNetworks/demo-adb-vnet"
+        },
+        "keyVaultResourceGroupName": {
+            "value": "demo-adb"
+        },
+        "keyVaultName": {
+            "value": "demo-adb-kv"
+        },
+        "keyName": {
+            "value": "demoadbfttkey"
+        },
+        "keyPermissions": {
+            "value": [
+                "get",
+                "wrapKey",
+                "unwrapKey"
+            ]
+        }
+    }
+}
