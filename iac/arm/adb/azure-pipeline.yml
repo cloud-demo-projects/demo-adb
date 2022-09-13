@@ -1,8 +1,6 @@
 trigger: none
 
-pool:
-  name: Private Pool Deployment
-  demands: azureps
+pool: Azure Pipelines
 
 parameters:
 - name: environment
