@@ -8,12 +8,7 @@ parameters:
     - acc
     - prod
 
-trigger:
-  branches:
-    include:
-      - fix/*
-      - feature/*
-      - main
+trigger: none
 
 variables:
   - name: NotebookName
