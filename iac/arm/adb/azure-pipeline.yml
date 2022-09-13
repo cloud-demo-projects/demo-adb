@@ -30,6 +30,6 @@ stages:
         ResourceGroupName: $(resourceGroupName)
         location: $(location)
         csmFile: '$(System.DefaultWorkingDirectory)/iac/arm/adb/azuredeploy.json'
-        csmParametersFile: '$(System.DefaultWorkingDirectory)/iac/arm/adbazuredeployparam.json'
+        csmParametersFile: '$(System.DefaultWorkingDirectory)/iac/arm/adb/azuredeployparam.json'
         #overrideParameters: '-keyVaultName "demo-adb-kv" -bypassNetworkAcls AzureServices -virtualNetworkRules []'
         deploymentMode: 'Incremental'
