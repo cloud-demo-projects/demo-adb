@@ -21,13 +21,13 @@
             "value": "/subscriptions/bf0f6779-86d2-467e-8226-10f92a8ad378/resourceGroups/adb-demo/providers/Microsoft.Network/virtualNetworks/demo-adb-vnet"
         },
         "keyVaultResourceGroupName": {
-            "value": "demo-adb"
+            "value": "adb-demo"
         },
         "keyVaultName": {
-            "value": "demo-adb-kv"
+            "value": "adb-demo-kv"
         },
         "keyName": {
-            "value": "demoadbfttkey"
+            "value": "adbdemokey"
         },
         "keyPermissions": {
             "value": [
