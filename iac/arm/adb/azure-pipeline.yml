@@ -15,7 +15,7 @@ parameters:
   - p
 
 variables:
-- template: conf/${{ parameters.environment }}/variables.yml
+- template: ../../conf/${{ parameters.environment }}/variables.yml
 
 stages:
 - stage: Stage_ADB
