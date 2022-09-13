@@ -18,7 +18,7 @@
             "value": "adbpublic01-subnet"
         },
         "customVirtualNetworkId": {
-            "value": "/subscriptions/blbla/resourceGroups/demo-adb/providers/Microsoft.Network/virtualNetworks/demo-adb-vnet"
+            "value": "/subscriptions/bf0f6779-86d2-467e-8226-10f92a8ad378/resourceGroups/adb-demo/providers/Microsoft.Network/virtualNetworks/demo-adb-vnet"
         },
         "keyVaultResourceGroupName": {
             "value": "demo-adb"
