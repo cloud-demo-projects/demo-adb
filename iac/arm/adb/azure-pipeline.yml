@@ -29,7 +29,7 @@ stages:
         SubscriptionId: $(subscriptionId)
         ResourceGroupName: $(resourceGroupName)
         location: $(location)
-        csmFile: '$(System.DefaultWorkingDirectory)/Services/Azure_Databricks/azuredeploy.json'
-        csmParametersFile: '$(System.DefaultWorkingDirectory)/Services/Azure_Databricks/azuredeployparam.json'
+        csmFile: '$(System.DefaultWorkingDirectory)/iac/arm/adb/azuredeploy.json'
+        csmParametersFile: '$(System.DefaultWorkingDirectory)/iac/arm/adbazuredeployparam.json'
         #overrideParameters: '-keyVaultName "demo-adb-kv" -bypassNetworkAcls AzureServices -virtualNetworkRules []'
         deploymentMode: 'Incremental'
