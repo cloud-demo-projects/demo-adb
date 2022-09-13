@@ -33,8 +33,7 @@
             "value": [
                 "get",
                 "wrapKey",
-                "unwrapKey",
-                "recover"
+                "unwrapKey"
             ]
         }
     }
