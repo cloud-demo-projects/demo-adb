@@ -3,3 +3,8 @@ variables:
   azureServiceConnection: 'sub_sc'
   resourceGroupName: 'adb-demo'
   location: 'westeurope'
+
+  WORKSPACE-REGION-URL: 
+  CSE-DEVELOP-PAT: 
+  EXISTING-CLUSTER-ID: 
+  WORKSPACE-ORG-ID: 
