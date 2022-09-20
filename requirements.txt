@@ -1,0 +1,9 @@
+pytest==7.0.1
+databricks-connect==6.4.49
+wheel
+pylint
+requests
+numpy
+azure-identity 
+azure-storage-blob
+pytz
