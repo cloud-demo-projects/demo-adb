@@ -11,8 +11,7 @@ parameters:
 trigger: none
 
 variables:
-  - name: NotebookName
-    value: demo_notebook
+- template: ../conf/${{ parameters.environment }}/variables.yml
 
 stages:
     - stage: CI_Build
