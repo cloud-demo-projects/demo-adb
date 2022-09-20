@@ -59,10 +59,10 @@ stages:
             15001" | databricks-connect configure
           displayName: 'Configure DBConnect Values'
 
-        - script: |
-            set dbjson={"host": "$(WORKSPACE-REGION-URL)", "token": "$(CSE-DEVELOP-PAT)", "cluster_id": "$(EXISTING-CLUSTER-ID)", "org_id": "$(WORKSPACE-ORG-ID)", "port": "15001"}
-            echo %dbjson% > %userprofile%/.databricks-connect
-          displayName: 'Configure DBConnect'
+        # - script: |
+        #     set dbjson={"host": "$(WORKSPACE-REGION-URL)", "token": "$(CSE-DEVELOP-PAT)", "cluster_id": "$(EXISTING-CLUSTER-ID)", "org_id": "$(WORKSPACE-ORG-ID)", "port": "15001"}
+        #     echo %dbjson% > %userprofile%/.databricks-connect
+        #   displayName: 'Configure DBConnect'
 
         - script: |
             databricks-connect test
