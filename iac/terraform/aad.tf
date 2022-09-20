@@ -24,8 +24,8 @@ resource "azuread_service_principal_password" "this" {
   value                = azurerm_key_vault_secret.service_principal.value
 }
 
-resource "azurerm_role_assignment" "this" {
-  scope                = azurerm_storage_account.this.id
-  role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = azuread_service_principal.this.object_id
-}
+# resource "azurerm_role_assignment" "this" {
+#   scope                = azurerm_storage_account.this.id
+#   role_definition_name = "Storage Blob Data Contributor"
+#   principal_id         = azuread_service_principal.this.object_id
+# }

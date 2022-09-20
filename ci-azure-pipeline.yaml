@@ -15,32 +15,12 @@ variables:
     value: demo_notebook
 
 stages:
-    - ${{ if eq(parameters.environment, 'dev') }}:
-      - stage: DeployDev
-        variables:
-          - group: ADB.VariableGroup.DEV
-          - name: WorkspaceNotebookDirectory
-            value: /SharedDir/
-        jobs:
-          - template: deployment.yml
-            parameters:
-              service_connection: adb-d-rg-sc
-              
-    - ${{ if eq(parameters.environment, 'acc') }}:
-      - stage: DeployAcc
-        displayName: DeployAcc
-        jobs:
-        - job: DeployAcc
-          steps:
-          - script: echo running DeployAcc
-          
-    - ${{ if eq(parameters.environment, 'prod') }}:
-      - stage: DeployProd
-        displayName: DeployProd
-        jobs:
-        - job: DeployProd
-          steps:
-          - script: echo running DeployProd
-
-  
-    
+    - stage: CI_Build
+      displayName: CI
+      jobs:
+      - job: CI
+        steps:
+          - task: UsePythonVersion@0
+            displayName: 'Use Python 3.7'
+            inputs:
+              versionSpec: 3.7
