@@ -67,3 +67,15 @@ stages:
         - script: |
             databricks-connect test
           displayName: 'Test Databricks connect'
+
+        - script: |
+            python -m pytest --junit-xml=$(Build.Repository.LocalPath)/logs/TEST-LOCAL.xml $(Build.Repository.LocalPath)/cicd/tests/unit_test.py || true
+            ls logs
+          displayName: 'Run Python Unit Tests for library code'
+
+        - task: PublishTestResults@2
+          inputs:
+            testResultsFiles: '**/TEST-*.xml'
+            failTaskOnFailedTests: true
+            publishRunAttachments: true
+
