@@ -25,17 +25,36 @@ stages:
     jobs:
     - job: CI
       steps:
+        # Install Python. The version must match the version on the Databricks cluster.
         - task: UsePythonVersion@0
           inputs:
             versionSpec: 3.8
           displayName: 'Use Python 3.8'
 
-        - script: |
-            python -m pip install --upgrade pip
-            pip install -r requirements.txt
-          displayName: 'Install dependencies'
+        # - script: |
+        #     python -m pip install --upgrade pip
+        #     pip install -r requirements.txt
+        #   displayName: 'Install dependencies'
 
+        # - script: |
+        #     pip install pytest pytest-azurepipelines
+        #     pytest
+        #   displayName: 'pytest'
+
+        # Install required Python modules, including databricks-connect, required to execute a unit test
+        # on a cluster.
         - script: |
-            pip install pytest pytest-azurepipelines
-            pytest
-          displayName: 'pytest'
+            pip install pytest requests setuptools wheel
+            pip install -U databricks-connect==7.3.*
+          displayName: 'Load Python Dependencies'
+
+        # Use environment variables to pass Databricks login information to the Databricks Connect
+        # configuration function
+        - script: |
+            echo "y
+            $(WORKSPACE-REGION-URL)
+            $(CSE-DEVELOP-PAT)
+            $(EXISTING-CLUSTER-ID)
+            $(WORKSPACE-ORG-ID)
+            15001" | databricks-connect configure
+          displayName: 'Configure DBConnect'
