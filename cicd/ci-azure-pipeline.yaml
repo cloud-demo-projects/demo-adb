@@ -19,7 +19,8 @@ parameters:
 variables:
 - template: ../conf/${{ parameters.environment }}/variables.yml
 
-strategy:
+stages:
+  strategy:
   matrix:
     Python27:
       python.version: '2.7'
@@ -29,8 +30,6 @@ strategy:
       python.version: '3.6'
     Python37:
       python.version: '3.7'
-
-stages:
   - stage: CI_Build
     displayName: CI
     jobs:
