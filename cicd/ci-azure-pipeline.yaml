@@ -23,22 +23,12 @@ stages:
   - stage: CI_Build
     displayName: CI
     jobs:
-      strategy:
-        matrix:
-          Python27:
-            python.version: '2.7'
-          Python35:
-            python.version: '3.5'
-          Python36:
-            python.version: '3.6'
-          Python37:
-            python.version: '3.7'
     - job: CI
       steps:
         - task: UsePythonVersion@0
           inputs:
-            versionSpec: '$(python.version)'
-          displayName: 'Use Python $(python.version)'
+            versionSpec: 3.8
+          displayName: 'Use Python 3.8'
 
         - script: |
             python -m pip install --upgrade pip
