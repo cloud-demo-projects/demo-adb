@@ -1,8 +1,3 @@
-# Python package
-# Create and test a Python package on multiple Python versions.
-# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/python
-
 trigger: none
 
 parameters:
@@ -30,16 +25,6 @@ stages:
           inputs:
             versionSpec: 3.8
           displayName: 'Use Python 3.8'
-
-        # - script: |
-        #     python -m pip install --upgrade pip
-        #     pip install -r requirements.txt
-        #   displayName: 'Install dependencies'
-
-        # - script: |
-        #     pip install pytest pytest-azurepipelines
-        #     pytest
-        #   displayName: 'pytest'
 
         # Install required Python modules, including databricks-connect, required to execute a unit test
         # on a cluster.
@@ -78,4 +63,10 @@ stages:
             testResultsFiles: '**/TEST-*.xml'
             failTaskOnFailedTests: true
             publishRunAttachments: true
+            
+        - task: PublishBuildArtifacts@1
+          displayName: 'src: notebooks'
+          inputs:
+            PathtoPublish: ../notebooks
+            ArtifactName: notebooks
 
