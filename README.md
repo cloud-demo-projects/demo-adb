@@ -13,3 +13,7 @@ Notebook CI/CD with ADB
 
 ## Databricks Runtime Libraries
 https://learn.microsoft.com/en-us/azure/databricks/release-notes/runtime/10.4#system-environment
+
+## Additional Libraries
+To make third-party or custom code available to notebooks and jobs running on your clusters, you can install a library.
+https://learn.microsoft.com/en-us/azure/databricks/libraries/
