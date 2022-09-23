@@ -10,3 +10,6 @@ Notebook CI/CD with ADB
 - Public subnet service endpoint towards Microsoft.Sql
 - Azure SQL selected networks whitelisting ADB public subnet
 - Keep Azure SQL "Allow Azure service" whitelisting off for security purpose
+
+## Databricks Runtime Libraries
+https://learn.microsoft.com/en-us/azure/databricks/release-notes/runtime/10.4#system-environment
