@@ -6,6 +6,7 @@ Notebook CI/CD with ADB
 - KV with purge protection enabled.
 
 ## Notebook Azure SQL connectivity with Private Endpoint Prerequisites
+- Notebook code in python
 - PLE subnet with private sqlserver endpoint deployed underneath; should create VNet private endpoint
 - Public subnet NSG outbound rule whitelisting towards ple-subnet on port 1433
 - PLE subnet inbound whitelisting from public-subnet on port 1433
@@ -13,6 +14,7 @@ Notebook CI/CD with ADB
 ![image](https://user-images.githubusercontent.com/67367858/191954451-e8f3ae4e-4b07-4f40-bc54-b105fb33f1f6.png)
 
 ## Notebook Azure SQL connectivity with Service Endpoint Prerequisites
+- Notebook code in python
 - Public subnet NSG rule whitelisting towards Microsoft.Sql destination on port 1433
 - Public subnet service endpoint towards Microsoft.Sql
 - Azure SQL selected networks whitelisting ADB public subnet
